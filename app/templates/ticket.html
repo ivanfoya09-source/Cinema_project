@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+Мій квиток
+{% endblock %}
+
+{% block content %}
+
+<h2 class="text-center mb-4">
+    🎟 Ваш квиток
+</h2>
+
+{% for ticket in booking.tickets %}
+
+<div class="card shadow-lg mb-4">
+
+    <div class="card-body">
+
+        <h3>
+            🎬 {{ booking.movie_session.movie.title }}
+        </h3>
+
+        <hr>
+
+        <p>
+            📅 {{ booking.movie_session.start_time.strftime("%d.%m.%Y") }}
+        </p>
+
+        <p>
+            🕒 {{ booking.movie_session.start_time.strftime("%H:%M") }}
+        </p>
+
+        <p>
+            🏢 {{ booking.movie_session.hall.name }}
+        </p>
+
+        <p>
+            🎫 Ряд {{ ticket.row }},
+            місце {{ ticket.seat }}
+        </p>
+
+        <p>
+            💵 {{ ticket.price }} грн
+        </p>
+
+        <hr>
+
+        <img
+            src="{{ ticket.qr_code }}"
+            width="220"
+            class="img-fluid">
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

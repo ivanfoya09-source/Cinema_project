@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+
+{% block title %}
+Профіль
+{% endblock %}
+
+{% block styles %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', path='/css/profile.css') }}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <h1 class="mb-4">
+        👤 Особистий кабінет
+    </h1>
+
+
+    <div class="row">
+
+
+        <!-- Дані користувача -->
+
+        <div class="col-md-4">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+
+                    <div class="profile-avatar">
+
+                        👤
+
+                    </div>
+
+
+                    <h3>
+
+                        {{ user.username }}
+
+                    </h3>
+
+
+                    <p class="text-muted">
+
+                        {{ user.email }}
+
+                    </p>
+
+
+                    <form id="profileForm">
+
+    <div class="mb-2">
+
+        <input
+            id="first_name"
+            class="form-control"
+            placeholder="Ім'я"
+            value="{{ user.first_name or '' }}">
+
+    </div>
+
+    <div class="mb-2">
+
+        <input
+            id="last_name"
+            class="form-control"
+            placeholder="Прізвище"
+            value="{{ user.last_name or '' }}">
+
+    </div>
+
+    <div class="mb-2">
+
+        <input
+            id="phone"
+            class="form-control"
+            placeholder="Телефон"
+            value="{{ user.phone or '' }}">
+
+    </div>
+
+    <div class="mb-2">
+
+        <input
+            id="city"
+            class="form-control"
+            placeholder="Місто"
+            value="{{ user.city or '' }}">
+
+    </div>
+
+    <div class="mb-3">
+
+        <input
+            id="birth_date"
+            type="date"
+            class="form-control"
+            value="{{ user.birth_date or '' }}">
+
+    </div>
+
+    <button
+        class="btn btn-success">
+
+        💾 Зберегти
+
+    </button>
+
+</form>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Квитки -->
+
+        <div class="col-md-8">
+
+
+            <div class="card shadow">
+
+
+                <div class="card-header">
+
+                    <h3>
+
+                        🎟 Мої квитки
+
+                    </h3>
+
+                </div>
+
+
+
+                <div class="card-body">
+
+
+                    {% if tickets %}
+
+
+                    {% for ticket in tickets %}
+
+
+                    <div class="ticket-card mb-3">
+
+
+                        <h5>
+
+                            {{ ticket.movie_session.movie.title }}
+
+                        </h5>
+
+
+                        <p>
+
+                            📅
+                            {{ ticket.movie_session.start_time.strftime("%d.%m.%Y") }}
+
+                        </p>
+
+
+                        <p>
+
+                            🕒
+                            {{ ticket.movie_session.start_time.strftime("%H:%M") }}
+
+                        </p>
+
+
+                        <p>
+
+                            💺 Місце:
+
+                            Ряд {{ ticket.row }}
+                            Місце {{ ticket.seat }}
+
+                        </p>
+
+
+                        <p>
+
+                            💰
+
+                            {{ ticket.price }}грн
+
+                        </p>
+
+
+                        <p>
+
+                            Статус:
+
+                            {% if ticket.status == "paid" %}
+
+                                <span class="badge bg-success">
+                                    Оплачено
+                                </span>
+
+                            {% elif ticket.status == "reserved" %}
+
+                                <span class="badge bg-warning text-dark">
+                                    Заброньовано
+                                </span>
+
+                            {% elif ticket.status == "used" %}
+
+                                <span class="badge bg-secondary">
+                                    Використано
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+                                    Скасовано
+                                </span>
+
+                            {% endif %}
+
+                        </p>
+
+                        {% if ticket.qr_code %}
+                        
+                        <hr>
+
+                        <div class="text-center">
+
+                            <p class="fw-bold">
+
+                                QR-код квитка
+
+                            </p>
+
+                            <img
+                                src="{{ ticket.qr_code }}"
+                                alt="QR Code"
+                                class="img-fluid rounded shadow"
+                                width="180">
+
+                        </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                    {% else %}
+
+
+                    <p>
+
+                        У вас ще немає квитків.
+
+                    </p>
+
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='/js/profile.js') }}"></script>
+{% endblock %}

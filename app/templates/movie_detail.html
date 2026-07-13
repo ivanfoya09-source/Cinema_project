@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ movie.title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row mt-4">
+
+    <div class="col-md-4">
+
+        <img
+            src="{{ movie.poster_url }}"
+            class="img-fluid rounded shadow"
+            alt="{{ movie.title }}">
+
+    </div>
+
+    <div class="col-md-8">
+
+        <h1>
+            {{ movie.title }}
+        </h1>
+
+        {% if movie.original_title %}
+        <h4 class="text-muted">
+            {{ movie.original_title }}
+        </h4>
+        {% endif %}
+
+        <hr>
+
+        <p>
+
+            <strong>⭐ Рейтинг:</strong>
+
+            {{ movie.rating }}
+
+        </p>
+
+        <p>
+
+            <strong>🎭 Жанр:</strong>
+
+            {{ movie.genre.name }}
+
+        </p>
+
+        <p>
+
+            <strong>🎬 Режисер:</strong>
+
+            {{ movie.director }}
+
+        </p>
+
+        <p>
+
+            <strong>🌍 Країна:</strong>
+
+            {{ movie.country }}
+
+        </p>
+
+        <p>
+
+            <strong>📅 Рік:</strong>
+
+            {{ movie.release_year }}
+
+        </p>
+
+        <p>
+
+            <strong>⏱ Тривалість:</strong>
+
+            {{ movie.duration }} хв
+
+        </p>
+
+        <p>
+
+            <strong>🔞 Вік:</strong>
+
+            {{ movie.age_limit }}+
+
+        </p>
+
+        <hr>
+
+        <h4>
+
+            Опис
+
+        </h4>
+
+        <p>
+
+            {{ movie.description }}
+
+        </p>
+
+        {% if movie.trailer_url %}
+
+        <a
+            href="{{ movie.trailer_url }}"
+            target="_blank"
+            class="btn btn-danger">
+
+            ▶ Дивитися трейлер
+
+        </a>
+
+        {% endif %}
+
+        <hr>
+
+<h4 class="mt-4">
+    Доступні сеанси
+</h4>
+
+{% if sessions %}
+
+    {% for session in sessions %}
+
+    <div class="card mt-3">
+
+        <div class="card-body">
+
+            <h5>
+                {{ session.start_time }}
+            </h5>
+
+            <p>
+                💰 {{ session.price }} грн
+            </p>
+
+            <p>
+                🎞 {{ session.format }}
+            </p>
+
+            <p>
+                💺 Вільних місць: {{ session.available_seats }}
+            </p>
+
+            <a
+                href="/booking/{{ session.id }}"
+                class="btn btn-success">
+
+                🎟 Забронювати
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<p class="text-muted">
+    На цей фільм ще немає сеансів.
+</p>
+
+{% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}
+Головна
+{% endblock %}
+
+{% block content %}
+
+<div class="p-5 mb-4 bg-dark text-white rounded">
+
+    <div class="container">
+
+        <h1>
+            Ласкаво просимо до Cinema
+        </h1>
+
+        <p>
+
+            Купуйте квитки онлайн
+            швидко та зручно.
+
+        </p>
+
+        <a
+            href="/movies"
+            class="btn btn-warning">
+
+            Переглянути фільми
+
+        </a>
+
+    </div>
+
+</div>
+
+<h2 class="mb-4">
+
+Популярні фільми
+
+</h2>
+
+<div class="row">
+
+    {% for movie in movies %}
+
+    <div class="col-lg-3 col-md-4 mb-4">
+
+        <div class="card h-100">
+
+            <img
+                src="{{ movie.poster_url }}"
+                class="card-img-top">
+
+            <div class="card-body">
+
+                <h5>
+
+                    {{ movie.title }}
+
+                </h5>
+
+                <p>
+
+                    ⭐ {{ movie.rating }}
+
+                </p>
+
+                <a
+                    href="/movie/{{ movie.id }}"
+                    class="btn btn-primary">
+
+                    Детальніше
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

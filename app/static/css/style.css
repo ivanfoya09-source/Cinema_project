@@ -1,0 +1,15 @@
+/* =========================
+   Загальні елементи
+========================= */
+
+.card{
+    border-radius:15px;
+}
+
+.table td{
+    vertical-align:middle;
+}
+
+.btn-sm{
+    margin-right:5px;
+}
