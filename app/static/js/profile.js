@@ -6,13 +6,16 @@ if (profileForm) {
 
         e.preventDefault();
 
+        const token = localStorage.getItem("access_token");
+
         const response = await fetch("/users/me", {
 
             method: "PUT",
 
             headers: {
 
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
 
             },
 

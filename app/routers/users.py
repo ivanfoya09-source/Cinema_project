@@ -38,10 +38,17 @@ def create_user(user: UserCreate,db: Session = Depends(get_db)):
     return UserService(db).create(user)
 
 
-@router.put("/me",response_model=UserResponse)
-def update_profile(user_data: UserUpdate,current_user: User = Depends(get_current_admin),db: Session = Depends(get_db)):
+@router.put("/me", response_model=UserResponse)
+def update_profile(
+    user_data: UserUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     service = UserService(db)
 
     user = service.get_by_id(current_user.id)
 
-    return service.update(user,user_data.model_dump(exclude_unset=True))
+    return service.update(
+        user,
+        user_data.model_dump(exclude_unset=True)
+    )
