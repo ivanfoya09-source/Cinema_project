@@ -3,7 +3,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from fastapi.exceptions import HTTPException
 
-from app.core.database import Base, engine
 from app.routers import reservation
 
 # Routers
