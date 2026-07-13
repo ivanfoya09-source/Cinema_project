@@ -1,10 +1,11 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-
 class Settings(BaseSettings):
     APP_NAME: str = "Cinema API"
 
     DATABASE_URL: str = "sqlite:///./cinema.db"
+
+    REDIS_URL: str | None = None
 
     SECRET_KEY: str
 
@@ -27,4 +28,3 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-
