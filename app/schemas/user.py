@@ -22,18 +22,14 @@ class UserCreate(UserBase):
 
 
 class UserUpdate(BaseModel):
-    username: str = Field(min_length=3, max_length=50)
+    username: str | None = Field(default=None,min_length=3,max_length=50)
     email: EmailStr | None = None
     first_name: str | None = None
     last_name: str | None = None
-    phone: str | None = Field(
-    default=None,
-    max_length=20,
-)
+    phone: str | None = Field(default=None, max_length=20)
     birth_date: date | None = None
     city: str | None = None
     avatar: HttpUrl | None = None
-
 
 class UserResponse(UserBase):
     id: int

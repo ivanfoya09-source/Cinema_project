@@ -6,17 +6,14 @@ if (profileForm) {
 
         e.preventDefault();
 
-        const token = localStorage.getItem("access_token");
-
         const response = await fetch("/users/me", {
 
             method: "PUT",
 
+            credentials: "include",
+
             headers: {
-
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-
+                "Content-Type": "application/json"
             },
 
             body: JSON.stringify({
@@ -31,15 +28,16 @@ if (profileForm) {
 
         });
 
+        const data = await response.json();
+
         if (response.ok) {
 
             alert("Профіль успішно оновлено!");
-
             location.reload();
 
         } else {
 
-            alert("Помилка оновлення профілю");
+            alert(data.detail || "Помилка оновлення профілю");
 
         }
 
