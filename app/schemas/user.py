@@ -8,7 +8,7 @@ class UserBase(BaseModel):
     email: EmailStr
     first_name: str | None = None
     last_name: str | None = None
-    phone: str | None = Field(default=None, max_length=20,max_length=20)
+    phone: str | None = Field(default=None, max_length=20)
     birth_date: date | None = None
     city: str | None = None
     avatar: HttpUrl | None = None
