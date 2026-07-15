@@ -37,6 +37,8 @@ def index(
 
     if current_user is None:
         return RedirectResponse("/login", status_code=303)
+    
+    BookingService(db).clear_expired_bookings()
 
     movies = MovieService(db).get_all()
 
@@ -61,6 +63,8 @@ def movies(
 
     if current_user is None:
         return RedirectResponse("/login", status_code=303)
+    
+    BookingService(db).clear_expired_bookings()
 
     limit = 6
     skip = (page - 1) * limit
@@ -150,6 +154,8 @@ def booking(
 
     if current_user is None:
         return RedirectResponse("/login", status_code=303)
+    
+    BookingService(db).clear_expired_bookings()
 
     session = MovieSessionService(db).get_by_id(session_id)
 

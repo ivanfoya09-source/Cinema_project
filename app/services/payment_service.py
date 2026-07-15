@@ -1,10 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.models import ticket
-from app.models import ticket
 from app.models.booking import Booking
 from app.models.ticket import Ticket
-from app.routers.pages import booking
 from app.services.qr_service import QRService
 
 
@@ -30,6 +27,8 @@ class PaymentService:
 
         for ticket in booking.tickets:
 
+            ticket.status = "paid"
+
             ticket.qr_code = QRService.generate(
                 f"""
                 Ticket #{ticket.id}
@@ -39,8 +38,6 @@ class PaymentService:
                 Seat: {ticket.seat}
                 """
             )
-
-        ticket.status = "paid"
 
         self.db.commit()
         self.db.refresh(booking)

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from sqlalchemy.orm import Session
 
 from app.models.booking import Booking
@@ -117,3 +119,25 @@ class BookingService:
             .filter(Booking.id == booking_id)
             .first()
         )
+    
+    def clear_expired_bookings(self):
+
+        expired_bookings = (
+            self.db.query(Booking)
+            .filter(
+                Booking.status == "pending",
+                Booking.created_at < datetime.utcnow() - timedelta(minutes=10)
+            )
+            .all()
+        )
+
+        for booking in expired_bookings:
+
+            booking.movie_session.available_seats += len(booking.tickets)
+
+            for ticket in booking.tickets:
+                self.db.delete(ticket)
+
+            self.db.delete(booking)
+
+        self.db.commit()
