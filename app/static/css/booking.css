@@ -91,7 +91,7 @@
 /* Зайняте місце */
 
 .seat.occupied{
-    background:#dc3545;
+    background:#dc3545 !important;
     cursor:not-allowed;
 }
 
