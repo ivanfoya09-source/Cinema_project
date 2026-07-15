@@ -203,7 +203,7 @@ async function loadOccupiedSeats() {
 
     const data = await response.json();
 
-    document.querySelectorAll(".seat").forEach(seat => {
+    hall.querySelectorAll(".seat").forEach(seat => {
         seat.classList.remove("occupied");
     });
 
