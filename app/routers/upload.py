@@ -23,7 +23,10 @@ async def upload_poster(file: UploadFile = File(...)):
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400,detail="Можна завантажувати тільки зображення")
 
-    result = cloudinary.uploader.upload(file.file)
+    result = cloudinary.uploader.upload(
+        file.file,
+        folder="cinema/posters"
+    )
 
     return {
         "poster_url": result["secure_url"]

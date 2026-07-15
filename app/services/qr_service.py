@@ -2,11 +2,12 @@ import os
 import uuid
 
 import qrcode
+import cloudinary.uploader
 
 
 class QRService:
 
-    UPLOAD_DIR = "app/static/qrcodes"
+    UPLOAD_DIR = "temp_qr"
 
     @classmethod
     def generate(cls, text: str):
@@ -21,4 +22,11 @@ class QRService:
 
         img.save(path)
 
-        return f"/static/qrcodes/{filename}"
+        result = cloudinary.uploader.upload(
+            path,
+            folder="cinema/qrcodes"
+        )
+
+        os.remove(path)
+
+        return result["secure_url"]
