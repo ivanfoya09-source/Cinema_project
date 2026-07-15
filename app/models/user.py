@@ -27,10 +27,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(50),unique=True,nullable=False)
     email: Mapped[str] = mapped_column(String(255),unique=True,nullable=False)
     hashed_password: Mapped[str] = mapped_column(String(255),nullable=False)
-    first_name: Mapped[str | None] = mapped_column(
-    String(100),
-    nullable=True,
-)
+    first_name: Mapped[str | None] = mapped_column(String(100),nullable=True)
     last_name: Mapped[str | None] = mapped_column(String(100))
     phone: Mapped[str | None] = mapped_column(String(20))
     birth_date: Mapped[date | None] = mapped_column(Date)

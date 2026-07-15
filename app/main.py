@@ -5,7 +5,6 @@ from fastapi.exceptions import HTTPException
 
 from app.routers import reservation
 
-# Routers
 from app.routers.auth import router as auth_router
 from app.routers.users import router as users_router
 from app.routers.genres import router as genres_router
@@ -24,22 +23,11 @@ app = FastAPI(title="Cinema API",version="1.0.0",description="Cinema website bui
 
 @app.exception_handler(401)
 async def unauthorized_handler(request: Request, exc: HTTPException):
-    return RedirectResponse(
-        url="/login",
-        status_code=303,
-    )
+    return RedirectResponse(url="/login",status_code=303)
 
-app.mount(
-    "/static",
-    StaticFiles(directory="app/static"),
-    name="static",
-)
+app.mount("/static",StaticFiles(directory="app/static"),name="static")
 
-app.mount(
-    "/uploads",
-    StaticFiles(directory="uploads"),
-    name="uploads",
-)
+app.mount("/uploads",StaticFiles(directory="uploads"),name="uploads")
 
 app.include_router(pages_router)
 

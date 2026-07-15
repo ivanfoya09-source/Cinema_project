@@ -6,12 +6,10 @@ from alembic import context
 from app.core.config import settings
 from app.core.database import Base
 
-# Імпорт моделей
 from app.models import *
 
 config = context.config
 
-# Беремо URL із .env
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 if config.config_file_name is not None:

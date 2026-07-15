@@ -11,16 +11,10 @@ from app.schemas.movie import (
 )
 from app.services.movie_service import MovieService
 
-router = APIRouter(
-    prefix="/movies",
-    tags=["Movies"],
-)
+router = APIRouter(prefix="/movies",tags=["Movies"])
 
 
-@router.get(
-    "/",
-    response_model=list[MovieResponse],
-)
+@router.get("/",response_model=list[MovieResponse])
 def get_movies(
     db: Session = Depends(get_db),
 ):
@@ -29,10 +23,7 @@ def get_movies(
     return service.get_all()
 
 
-@router.get(
-    "/{movie_id}",
-    response_model=MovieResponse,
-)
+@router.get("/{movie_id}",response_model=MovieResponse)
 def get_movie(
     movie_id: int,
     db: Session = Depends(get_db),
@@ -42,19 +33,12 @@ def get_movie(
     movie = service.get_by_id(movie_id)
 
     if not movie:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Фільм не знайдено",
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Фільм не знайдено")
 
     return movie
 
 
-@router.post(
-    "/",
-    response_model=MovieResponse,
-    status_code=status.HTTP_201_CREATED,
-)
+@router.post("/",response_model=MovieResponse,status_code=status.HTTP_201_CREATED)
 def create_movie(
     movie: MovieCreate,
     db: Session = Depends(get_db),
@@ -65,10 +49,7 @@ def create_movie(
     return service.create(movie)
 
 
-@router.put(
-    "/{movie_id}",
-    response_model=MovieResponse,
-)
+@router.put("/{movie_id}",response_model=MovieResponse)
 def update_movie(
     movie_id: int,
     movie: MovieUpdate,
@@ -80,18 +61,12 @@ def update_movie(
     db_movie = service.get_by_id(movie_id)
 
     if not db_movie:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Фільм не знайдено",
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Фільм не знайдено")
 
     return service.update(db_movie, movie)
 
 
-@router.delete(
-    "/{movie_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-)
+@router.delete("/{movie_id}",status_code=status.HTTP_204_NO_CONTENT)
 def delete_movie(
     movie_id: int,
     db: Session = Depends(get_db),
@@ -102,9 +77,6 @@ def delete_movie(
     movie = service.get_by_id(movie_id)
 
     if not movie:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Фільм не знайдено",
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Фільм не знайдено")
 
     service.delete_movie(movie)

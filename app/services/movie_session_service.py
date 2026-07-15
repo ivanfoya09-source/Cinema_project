@@ -41,11 +41,7 @@ class MovieSessionService(BaseService):
 
         return self.add(db_session)
 
-    def update(
-        self,
-        db_session: MovieSession,
-        session: MovieSessionUpdate,
-    ):
+    def update(self,db_session: MovieSession,session: MovieSessionUpdate):
 
         data = session.model_dump(exclude_unset=True)
 

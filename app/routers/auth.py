@@ -33,17 +33,14 @@ def login(
     tokens = service.login(data)
 
     if not tokens:
-        raise HTTPException(
-            status_code=401,
-            detail="Невірний email або пароль",
-        )
+        raise HTTPException(status_code=401,detail="Невірний email або пароль")
 
     response.set_cookie(
     key="access_token",
     value=tokens["access_token"],
     httponly=True,
     samesite="lax",
-    secure=False,      # True після переходу на HTTPS
+    secure=False,
     max_age=60 * 60,
     )
 

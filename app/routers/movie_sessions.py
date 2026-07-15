@@ -11,16 +11,10 @@ from app.schemas.movie_session import (
 )
 from app.services.movie_session_service import MovieSessionService
 
-router = APIRouter(
-    prefix="/sessions",
-    tags=["Movie Sessions"],
-)
+router = APIRouter(prefix="/sessions",tags=["Movie Sessions"])
 
 
-@router.get(
-    "/",
-    response_model=list[MovieSessionResponse],
-)
+@router.get("/",response_model=list[MovieSessionResponse])
 def get_sessions(
     db: Session = Depends(get_db),
 ):
@@ -29,10 +23,7 @@ def get_sessions(
     return service.get_all()
 
 
-@router.get(
-    "/{session_id}",
-    response_model=MovieSessionResponse,
-)
+@router.get("/{session_id}",response_model=MovieSessionResponse)
 def get_session(
     session_id: int,
     db: Session = Depends(get_db),
@@ -42,19 +33,12 @@ def get_session(
     session = service.get_by_id(session_id)
 
     if not session:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Сеанс не знайдено",
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Сеанс не знайдено")
 
     return session
 
 
-@router.post(
-    "/",
-    response_model=MovieSessionResponse,
-    status_code=status.HTTP_201_CREATED,
-)
+@router.post("/",response_model=MovieSessionResponse,status_code=status.HTTP_201_CREATED)
 def create_session(
     data: MovieSessionCreate,
     db: Session = Depends(get_db),
@@ -65,10 +49,7 @@ def create_session(
     return service.create(data)
 
 
-@router.put(
-    "/{session_id}",
-    response_model=MovieSessionResponse,
-)
+@router.put("/{session_id}",response_model=MovieSessionResponse)
 def update_session(
     session_id: int,
     data: MovieSessionUpdate,
@@ -80,18 +61,12 @@ def update_session(
     session = service.get_by_id(session_id)
 
     if not session:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Сеанс не знайдено",
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Сеанс не знайдено")
 
     return service.update(session, data)
 
 
-@router.delete(
-    "/{session_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-)
+@router.delete("/{session_id}",status_code=status.HTTP_204_NO_CONTENT)
 def delete_session(
     session_id: int,
     db: Session = Depends(get_db),
@@ -102,9 +77,6 @@ def delete_session(
     session = service.get_by_id(session_id)
 
     if not session:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Сеанс не знайдено",
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Сеанс не знайдено")
 
     service.delete_session(session)

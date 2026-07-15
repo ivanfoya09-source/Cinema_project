@@ -15,10 +15,7 @@ class QRService:
 
         filename = f"{uuid.uuid4()}.png"
 
-        path = os.path.join(
-            cls.UPLOAD_DIR,
-            filename,
-        )
+        path = os.path.join(cls.UPLOAD_DIR, filename)
 
         img = qrcode.make(text)
 

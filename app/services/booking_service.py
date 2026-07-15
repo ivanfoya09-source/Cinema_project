@@ -49,7 +49,6 @@ class BookingService:
 
             for seat in seats:
 
-                # Перевірка SQLite
                 exists = (
                     self.db.query(Ticket)
                     .filter(
@@ -80,7 +79,6 @@ class BookingService:
 
             self.db.commit()
 
-            # Звільняємо місця в Redis
             for seat in seats:
                 ReservationService.release_seat(
                     session.id,

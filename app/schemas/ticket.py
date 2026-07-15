@@ -12,7 +12,6 @@ class TicketBase(BaseModel):
     seat: int = Field(gt=0)
     price: float = Field(gt=0)
     status: TicketStatus = TicketStatus.RESERVED
-
     qr_code: str | None = Field(default=None, max_length=255)
 
 

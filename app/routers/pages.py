@@ -103,10 +103,7 @@ def movie_detail(
     movie = MovieService(db).get_by_id(movie_id)
 
     if not movie:
-        raise HTTPException(
-            status_code=404,
-            detail="Фільм не знайдено",
-        )
+        raise HTTPException(status_code=404,detail="Фільм не знайдено")
 
     sessions = MovieSessionService(db).get_by_movie(movie_id)
 
@@ -160,10 +157,7 @@ def booking(
     session = MovieSessionService(db).get_by_id(session_id)
 
     if not session:
-        raise HTTPException(
-            status_code=404,
-            detail="Сеанс не знайдено",
-        )
+        raise HTTPException(status_code=404,detail="Сеанс не знайдено")
 
     return templates.TemplateResponse(
         "booking.html",
@@ -190,10 +184,7 @@ def payment(
     booking = BookingService(db).get_booking(booking_id)
 
     if not booking:
-        raise HTTPException(
-            status_code=404,
-            detail="Бронювання не знайдено",
-        )
+        raise HTTPException(status_code=404,detail="Бронювання не знайдено")
 
     return templates.TemplateResponse(
         "payment.html",

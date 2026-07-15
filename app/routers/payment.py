@@ -12,10 +12,7 @@ from app.models.booking import Booking
 
 templates = Jinja2Templates(directory="app/templates")
 
-router = APIRouter(
-    prefix="/payment",
-    tags=["Payment"],
-)
+router = APIRouter(prefix="/payment",tags=["Payment"])
 
 
 @router.post("/{booking_id}")
@@ -37,10 +34,7 @@ def pay_booking(
 
     except ValueError as e:
 
-        raise HTTPException(
-            status_code=404,
-            detail=str(e),
-        )
+        raise HTTPException(status_code=404,detail=str(e))
     
 
 @router.get("/{booking_id}", response_class=HTMLResponse)
@@ -57,10 +51,7 @@ def payment_page(
     )
 
     if not booking:
-        raise HTTPException(
-            status_code=404,
-            detail="Бронювання не знайдено"
-        )
+        raise HTTPException(status_code=404,detail="Бронювання не знайдено")
 
     return templates.TemplateResponse(
         "payment.html",
@@ -85,7 +76,7 @@ def ticket_page(
     )
 
     if not booking:
-        raise HTTPException(404, "Бронювання не знайдено")
+        raise HTTPException(status_code=404,detail="Бронювання не знайдено")
 
     return templates.TemplateResponse(
         "ticket.html",

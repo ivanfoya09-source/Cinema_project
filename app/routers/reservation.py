@@ -8,16 +8,10 @@ from app.schemas.reservation import (
 )
 from app.services.reservation_service import ReservationService
 
-router = APIRouter(
-    prefix="/reservations",
-    tags=["Reservations"],
-)
+router = APIRouter(prefix="/reservations",tags=["Reservations"])
 
 
-@router.post(
-    "/",
-    response_model=ReservationResponse,
-)
+@router.post("/",response_model=ReservationResponse)
 def reserve_seats(
     data: ReservationRequest,
     current_user: User = Depends(get_current_user),
@@ -32,10 +26,7 @@ def reserve_seats(
         )
 
         if not success:
-            raise HTTPException(
-                status_code=409,
-                detail=f"Місце {seat.row}-{seat.seat} вже зарезервоване",
-            )
+            raise HTTPException(status_code=409,detail=f"Місце {seat.row}-{seat.seat} вже зарезервоване")
 
     return {
         "message": "Місця успішно зарезервовано на 10 хвилин"

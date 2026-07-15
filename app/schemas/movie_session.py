@@ -8,17 +8,11 @@ class MovieSessionBase(BaseModel):
     hall_id: int = Field(gt=0)
     start_time: datetime
     end_time: datetime
-    language: str = Field(
-    default="Українська",
-    max_length=50,
-)
+    language: str = Field(default="Українська",max_length=50)
     subtitle: bool = False
     price: float = Field(gt=0)
     available_seats: int = Field(ge=0)
-    format: str = Field(
-    default="2D",
-    max_length=20,
-)
+    format: str = Field(default="2D",max_length=20)
     is_active: bool = True
 
     @model_validator(mode="after")

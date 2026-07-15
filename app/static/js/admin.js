@@ -11,7 +11,6 @@ if (movieForm) {
 
         let posterUrl = "";
 
-        // Якщо завантажили новий постер
         const posterFile = document.getElementById("poster_file").files[0];
 
         if (posterFile) {
@@ -34,7 +33,6 @@ if (movieForm) {
 
         } else {
 
-            // Якщо редагуємо і новий постер не вибрали
             posterUrl = document.getElementById("poster_url").value;
 
         }

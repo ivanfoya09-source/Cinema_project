@@ -10,16 +10,10 @@ from app.schemas.genre import (
 )
 from app.services.genre_service import GenreService
 
-router = APIRouter(
-    prefix="/genres",
-    tags=["Genres"],
-)
+router = APIRouter(prefix="/genres",tags=["Genres"])
 
 
-@router.get(
-    "/",
-    response_model=list[GenreResponse],
-)
+@router.get( "/",response_model=list[GenreResponse])
 def get_genres(
     db: Session = Depends(get_db),
 ):
@@ -28,11 +22,7 @@ def get_genres(
     return service.get_all()
 
 
-@router.post(
-    "/",
-    response_model=GenreResponse,
-    status_code=status.HTTP_201_CREATED,
-)
+@router.post("/",response_model=GenreResponse,status_code=status.HTTP_201_CREATED)
 def create_genre(
     genre: GenreCreate,
     db: Session = Depends(get_db),

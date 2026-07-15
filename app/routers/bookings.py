@@ -11,17 +11,10 @@ from app.schemas.booking import (
 from app.services.booking_service import BookingService
 
 
-router = APIRouter(
-    prefix="/bookings",
-    tags=["Bookings"],
-)
+router = APIRouter(prefix="/bookings",tags=["Bookings"])
 
 
-@router.post(
-    "/",
-    response_model=BookingResponse,
-    status_code=status.HTTP_201_CREATED,
-)
+@router.post("/",response_model=BookingResponse,status_code=status.HTTP_201_CREATED)
 def create_booking(
     booking: BookingCreate,
     db: Session = Depends(get_db),
@@ -43,10 +36,8 @@ def create_booking(
         )
 
     except ValueError as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e),
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail=str(e))
+
 
 
 @router.get("/session/{session_id}")

@@ -1,17 +1,9 @@
 from sqlalchemy.orm import Session
 
-from app.core.security import (
-    verify_password,
-    hash_password,
-    create_access_token,
-    create_refresh_token,
-)
+from app.core.security import verify_password, hash_password, create_access_token, create_refresh_token
 
 from app.models.user import User
-from app.schemas.auth import (
-    LoginRequest,
-    RegisterRequest,
-)
+from app.schemas.auth import LoginRequest, RegisterRequest
 
 
 class AuthService:

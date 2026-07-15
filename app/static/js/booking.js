@@ -122,7 +122,6 @@ if (bookButton) {
             window.location.pathname.split("/").pop()
         );
 
-        // 1. Тимчасове резервування через Redis
         const reserveResponse = await fetch("/reservations/", {
 
             method: "POST",
@@ -153,7 +152,6 @@ if (bookButton) {
 
         }
 
-        // 2. Створення бронювання
         const bookingResponse = await fetch("/bookings/", {
 
             method: "POST",

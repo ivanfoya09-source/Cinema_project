@@ -60,11 +60,7 @@ class MovieService(BaseService):
 
         return db_movie
 
-    def update(
-        self,
-        db_movie: Movie,
-        movie: MovieUpdate,
-    ):
+    def update(self,db_movie: Movie,movie: MovieUpdate):
 
         data = movie.model_dump(exclude_unset=True)
 

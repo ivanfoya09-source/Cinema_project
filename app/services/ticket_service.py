@@ -52,11 +52,7 @@ class TicketService(BaseService):
 
         return self.add(db_ticket)
 
-    def update(
-        self,
-        db_ticket: Ticket,
-        ticket: TicketUpdate,
-    ):
+    def update(self,db_ticket: Ticket,ticket: TicketUpdate):
 
         data = ticket.model_dump(exclude_unset=True)
 
