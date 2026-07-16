@@ -29,10 +29,6 @@
 
 <body>
 
-<p style="color:red;">
-    {{ user }}
-</p>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <div class="container">
@@ -57,58 +53,45 @@
 
             <ul class="navbar-nav">
 
-                <li class="nav-item">
+                {% if user %}
 
-                    <a class="nav-link"
-                    href="/login">
-                        Увійти
-                    </a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">
+                            Профіль
+                        </a>
+                    </li>
 
-                </li>
+                    {% if user.role == "admin" %}
 
-                <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">
+                            Адмін
+                        </a>
+                    </li>
 
-                    <a class="nav-link"
-                    href="/register">
-                        Реєстрація
-                    </a>
+                    {% endif %}
 
-                </li>
+                    <li class="nav-item">
+                        <a href="#" id="logoutButton" class="nav-link">
+                            Вийти
+                        </a>
+                    </li>
 
-                <li class="nav-item">
+                {% else %}
 
-                    <a class="nav-link"
-                        href="/profile">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">
+                            Увійти
+                        </a>
+                    </li>
 
-                        Профіль
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">
+                            Реєстрація
+                        </a>
+                    </li>
 
-                    </a>
-
-                </li>
-
-                <li class="nav-item">
-
-                    <a class="nav-link"
-                        href="/admin">
-
-                        Адмін
-
-                    </a>
-
-                </li>
-
-                <li class="nav-item">
-
-                    <a
-                        href="#"
-                        id="logoutButton"
-                        class="nav-link">
-
-                        Вийти
-
-                    </a>
-
-                </li>
+                {% endif %}
 
             </ul>
 
