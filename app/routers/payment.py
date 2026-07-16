@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.core.security import require_login
+from app.core.dependencies import require_login
 from fastapi.responses import RedirectResponse
 from app.services.payment_service import PaymentService
 from fastapi.responses import HTMLResponse

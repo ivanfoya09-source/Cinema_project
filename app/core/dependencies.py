@@ -65,3 +65,9 @@ def login_required(request: Request):
         return RedirectResponse("/login", status_code=302)
 
     return None
+
+def require_login(request: Request, db: Session):
+    try:
+        return get_current_user(request, db)
+    except HTTPException:
+        return None

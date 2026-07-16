@@ -5,10 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.models.user import User
-from app.core.dependencies import (
-    get_current_admin,
-    get_current_user,
-)
+from app.core.dependencies import get_current_admin,get_current_user,require_login
 from app.services.movie_service import MovieService
 from app.services.movie_session_service import MovieSessionService
 from app.services.genre_service import GenreService
@@ -18,13 +15,6 @@ from app.services.booking_service import BookingService
 router = APIRouter(tags=["Pages"])
 
 templates = Jinja2Templates(directory="app/templates")
-
-
-def require_login(request: Request, db: Session):
-    try:
-        return get_current_user(request, db)
-    except HTTPException:
-        return None
 
 
 @router.get("/", response_class=HTMLResponse)
