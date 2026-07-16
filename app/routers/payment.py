@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
+from app.core.security import require_login
+from fastapi.responses import RedirectResponse
 from app.services.payment_service import PaymentService
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -43,6 +45,11 @@ def payment_page(
     booking_id: int,
     db: Session = Depends(get_db),
 ):
+    
+    current_user = require_login(request, db)
+
+    if current_user is None:
+        return RedirectResponse("/login", status_code=303)
 
     booking = (
         db.query(Booking)
@@ -58,6 +65,7 @@ def payment_page(
         {
             "request": request,
             "booking": booking,
+            "user": current_user,
         },
     )
 
@@ -69,6 +77,11 @@ def ticket_page(
     db: Session = Depends(get_db),
 ):
 
+    current_user = require_login(request, db)
+
+    if current_user is None:
+        return RedirectResponse("/login", status_code=303)
+
     booking = (
         db.query(Booking)
         .filter(Booking.id == booking_id)
@@ -76,12 +89,13 @@ def ticket_page(
     )
 
     if not booking:
-        raise HTTPException(status_code=404,detail="Бронювання не знайдено")
+        raise HTTPException(status_code=404, detail="Бронювання не знайдено")
 
     return templates.TemplateResponse(
         "ticket.html",
         {
             "request": request,
             "booking": booking,
+            "user": current_user,
         },
     )
