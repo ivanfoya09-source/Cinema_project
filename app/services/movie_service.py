@@ -16,16 +16,20 @@ class MovieService(BaseService):
         super().__init__(db)
 
     def get_all(
-    self,
-    skip: int = 0,
-    limit: int = 4,
+        self,
+        skip: int = 0,
+        limit: int | None = None,
     ):
-        return (
-        self.db.query(Movie)
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
+        query = self.db.query(Movie)
+
+        if skip:
+            query = query.offset(skip)
+
+        if limit is not None:
+            query = query.limit(limit)
+
+        return query.all()
+
     def count(self):
         return self.db.query(Movie).count()
 
