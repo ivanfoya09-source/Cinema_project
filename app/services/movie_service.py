@@ -18,7 +18,7 @@ class MovieService(BaseService):
     def get_all(
     self,
     skip: int = 0,
-    limit: int = 6,
+    limit: int = 4,
     ):
         return (
         self.db.query(Movie)

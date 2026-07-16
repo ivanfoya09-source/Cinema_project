@@ -33,13 +33,13 @@
 
     <div class="container">
 
-        <a class="navbar-brand"
-           href="/">
+        <a class="navbar-brand" href="/">
             🎬 Cinema
         </a>
 
         <button
             class="navbar-toggler"
+            type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbar">
 
@@ -47,13 +47,23 @@
 
         </button>
 
-        <div
-            class="collapse navbar-collapse"
-            id="navbar">
+        <div class="collapse navbar-collapse" id="navbar">
 
-            <ul class="navbar-nav">
+            {% if user %}
 
-                {% if user %}
+                <ul class="navbar-nav me-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            Головна
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/movies">
+                            Фільми
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/profile">
@@ -62,22 +72,49 @@
                     </li>
 
                     {% if user.role == "admin" %}
-
                     <li class="nav-item">
                         <a class="nav-link" href="/admin">
                             Адмін
                         </a>
                     </li>
-
                     {% endif %}
 
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+
                     <li class="nav-item">
-                        <a href="#" id="logoutButton" class="nav-link">
+                        <a
+                            href="#"
+                            id="logoutButton"
+                            class="nav-link">
+
                             Вийти
+
                         </a>
                     </li>
 
-                {% else %}
+                </ul>
+
+            {% else %}
+
+                <ul class="navbar-nav me-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            Головна
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/movies">
+                            Фільми
+                        </a>
+                    </li>
+
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
                         <a class="nav-link" href="/login">
@@ -91,9 +128,9 @@
                         </a>
                     </li>
 
-                {% endif %}
+                </ul>
 
-            </ul>
+            {% endif %}
 
         </div>
 

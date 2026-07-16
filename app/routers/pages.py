@@ -40,7 +40,7 @@ def index(
     
     BookingService(db).clear_expired_bookings()
 
-    movies = MovieService(db).get_all()
+    movies = MovieService(db).get_all(limit=4)
 
     return templates.TemplateResponse(
         "index.html",
@@ -66,7 +66,7 @@ def movies(
     
     BookingService(db).clear_expired_bookings()
 
-    limit = 6
+    limit = 4
     skip = (page - 1) * limit
 
     service = MovieService(db)
